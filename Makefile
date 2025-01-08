@@ -9,20 +9,13 @@ TARGET = my_custom_de
 # Source files
 SRCS = my_custom_de.c
 
-# Object files
-OBJS = $(SRCS:.c=.o)
-
 # Default target to clean and then build the project
 all: clean $(TARGET)
 
-# Compile the program
-$(TARGET): $(OBJS)
-	$(CC) -o $@ $(OBJS) $(LDFLAGS)
-
-# Compile .c to .o (object files)
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# Compile and link in one step (no object files)
+$(TARGET): $(SRCS)
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 # Clean up generated files
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(TARGET)
